@@ -35,6 +35,14 @@ def create_note(*, note_id: int, note: Note):
     return notes_library[note_id]
 
 
+@app.get("/get_by_date")
+def get_by_date(*, date: str):
+    for i in notes_library:
+        if notes_library[i].date == date:
+            return notes_library[i]
+        else:
+            raise HTTPException(status_code = 401, detail = "Date does not exist.")
+
 @app.get("/get_by_title")
 def get_by_title(*, title: str):
     for i in notes_library:
@@ -43,6 +51,13 @@ def get_by_title(*, title: str):
         else:
             raise HTTPException(status_code = 401, detail = "Title does not exist.")
 
+@app.get("/get_by_category")
+def get_by_category(*, category: str):
+    for i in notes_library:
+        if notes_library[i].category == category:
+            return notes_library[i]
+        else:
+            raise HTTPException(status_code = 401, detail = "Category does not exist.")
 
 @app.delete("/delete_note")
 def delete_note(*, title: str):
